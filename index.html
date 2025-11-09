@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en"
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Amrozia – Filmmaker Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css" />
+
+</head>
+<body>
+<!-- Top Bar / Navigation -->
+<header class="site-header">
+    <div class="logo">
+        <!-- Dein Name -->
+        <a href="#top">Amrozia Alina Bhatti</a>
+    </div>
+    <nav class="main-nav">
+        <a href="#films">Films</a>
+        <a href="#about">About</a>
+        <a href="#screenings">Screening Events</a>
+        <a href="#contact">Contact</a>
+    </nav>
+</header>
+
+<!-- HERO SECTION -->
+<section class="hero" id="top">
+    <!-- Hintergrundbild später in CSS (hero::before) oder mit inline-style ändern -->
+    <div class="hero-overlay">
+        <h1 class="hero-title">Amrozia</h1>
+        <p class="hero-subtitle">Film &amp; TV Production · Video &amp; Sound Editing</p>
+    </div>
+</section>
+
+<!-- LATEST FILMS -->
+<!-- Farwa Modal Video -->
+<div id="farwa-modal" class="video-modal">
+    <div class="video-modal-inner">
+        <button class="close-modal" type="button" onclick="closeFarwaModal()">×</button>
+        <video id="farwa-modal-video" class="modal-video" controls>
+            <source src="videos/farwa_birthday.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+</div>
+
+<section class="latest-films" id="films">
+    <h2>Latest Films</h2>
+    <div class="film-grid">
+        <!-- Platzhalter 1 -->
+        <div class="film-card">
+            <div class="thumb-placeholder">
+                <!-- Video im Kasten mit Poster (Titelbild später einfügen) -->
+                <video
+                        id="farwa-inline"
+                        class="film-video"
+                        controls
+                        poster="images/farwa_thumbnail.jpg">
+                    <source src="videos/farwa_birthday.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+
+                <!-- kleiner Vergrößern-Button -->
+                <button class="enlarge-btn" type="button" onclick="openFarwaModal()">⤢</button>
+            </div>
+
+            <div class="film-info">
+                <h3>Farwa – 20th Birthday Aesthetic Reel</h3>
+                <p>A soft, cinematic birthday visual · Role: Camera &amp; Edit.</p>
+            </div>
+        </div>
+
+
+
+
+
+        <!-- Platzhalter 2 -->
+        <div class="film-card">
+            <div class="thumb-placeholder">
+                <span>Film 2 – Coming Soon</span>
+            </div>
+            <div class="film-info">
+                <h3>Title Placeholder</h3>
+                <p>Short description of the project. Role: Editor / Colorist.</p>
+            </div>
+        </div>
+
+        <!-- Platzhalter 3 -->
+        <div class="film-card">
+            <div class="thumb-placeholder">
+                <span>Film 3 – Coming Soon</span>
+            </div>
+            <div class="film-info">
+                <h3>Title Placeholder</h3>
+                <p>Short description of the project. Role: Sound Design / Mix.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ABOUT SECTION (kurz, ausbaubar) -->
+<section class="about-section" id="about">
+    <h2>About</h2>
+    <p>
+        Short bio placeholder. Here you introduce yourself as a Media Engineering student
+        focusing on film, TV production, editing and sound. Replace this text with your own story.
+    </p>
+</section>
+
+<!-- SCREENING EVENTS (Platzhalter) -->
+<section class="screenings-section" id="screenings">
+    <h2>Screening Events</h2>
+    <p>Coming soon: festivals, screenings, online releases of your work.</p>
+</section>
+
+<!-- FOLLOW / CONTACT / FOOTER -->
+<footer class="site-footer" id="contact">
+    <div class="footer-content">
+        <div class="follow">
+            <h3>Follow Me.</h3>
+            <p class="contact-line">
+                <a href="mailto:info@yourmail.com">amrozia@live.de</a><br />
+                <span>+49 176 55731102</span>
+            </p>
+            <p class="social-links">
+                <!-- Später echte Links eintragen -->
+                <a href="#">instagram</a> ·
+                <a href="#">linkedin</a>
+            </p>
+        </div>
+
+        <div class="subscribe">
+            <h3>Subscribe</h3>
+            <form>
+                <input type="email" placeholder="Email address *" required />
+                <label class="checkbox-label">
+                    <input type="checkbox" />
+                    <span>Yes, keep me updated.</span>
+                </label>
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="footer-bottom">
+        <p>©2025 by Amrozia Alina Bhatti. All rights reserved.</p>
+    </div>
+</footer>
+</body>
+</html>
+<script>
+    function openFarwaModal() {
+        const modal = document.getElementById('farwa-modal');
+        const inlineVideo = document.getElementById('farwa-inline');
+        const modalVideo = document.getElementById('farwa-modal-video');
+
+        if (inlineVideo) inlineVideo.pause();  // kleines Video stoppen
+        modal.classList.add('show');
+        modalVideo.currentTime = 0;
+        modalVideo.play();
+    }
+
+    function closeFarwaModal() {
+        const modal = document.getElementById('farwa-modal');
+        const modalVideo = document.getElementById('farwa-modal-video');
+
+        modal.classList.remove('show');
+        if (modalVideo) modalVideo.pause();
+    }
+
+    // Klick außerhalb des Videos schließt das Modal
+    document.getElementById('farwa-modal').addEventListener('click', function(e) {
+        if (!e.target.closest('.video-modal-inner')) {
+            closeFarwaModal();
+        }
+    });
+</script>
