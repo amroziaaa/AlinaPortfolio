@@ -35,67 +35,21 @@
 </section>
 
 <!-- LATEST FILMS -->
-<!-- Farwa Modal Video -->
-<div id="farwa-modal" class="video-modal">
+<section class="latest-films" id="films">
+    <h2>Latest Films</h2>
+    <div id="film-grid" class="film-grid">
+        <!-- Wird automatisch mit JS gefüllt -->
+    </div>
+</section>
+
+<!-- EIN gemeinsames Modal für alle Videos -->
+<div id="video-modal" class="video-modal">
     <div class="video-modal-inner">
-        <button class="close-modal" type="button" onclick="closeFarwaModal()">×</button>
-        <video id="farwa-modal-video" class="modal-video" controls>
-            <source src="videos/farwa_birthday.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
+        <button class="close-modal" type="button" onclick="closeVideoModal()">×</button>
+        <video id="modal-video" class="modal-video" controls></video>
     </div>
 </div>
 
-<section class="latest-films" id="films">
-    <h2>Latest Films</h2>
-    <div class="film-grid">
-        <!-- Platzhalter 1 -->
-        <div class="film-card">
-            <div class="thumb-placeholder">
-                <!-- Video im Kasten mit Poster (Titelbild später einfügen) -->
-                <video
-                        id="farwa-inline"
-                        class="film-video"
-                        controls
-                        poster="images/farwa_thumbnail.jpg">
-                    <source src="videos/farwa_birthday.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-
-                <!-- kleiner Vergrößern-Button -->
-                <button class="enlarge-btn" type="button" onclick="openFarwaModal()">⤢</button>
-            </div>
-
-            <div class="film-info">
-                <h3>Farwa – 20th Birthday Aesthetic Reel</h3>
-                <p>A soft, cinematic birthday visual · Role: Camera &amp; Edit.</p>
-            </div>
-        </div>
-
-
-
-
-
-        <!-- Platzhalter 2 -->
-        <div class="film-card">
-            <div class="thumb-placeholder">
-                <span>Film 2 – Coming Soon</span>
-            </div>
-            <div class="film-info">
-                <h3>Title Placeholder</h3>
-                <p>Short description of the project. Role: Editor / Colorist.</p>
-            </div>
-        </div>
-
-        <!-- Platzhalter 3 -->
-        <div class="film-card">
-            <div class="thumb-placeholder">
-                <span>Film 3 – Coming Soon</span>
-            </div>
-            <div class="film-info">
-                <h3>Title Placeholder</h3>
-                <p>Short description of the project. Role: Sound Design / Mix.</p>
-            </div>
         </div>
     </div>
 </section>
@@ -129,6 +83,10 @@
                 <a href="#">instagram</a> ·
                 <a href="#">linkedin</a>
             </p>
+            <p class="cv-download">
+                <a href="documents/Alina%20Bhatti%20CV%20.pdf" download>📄 Download CV</a>
+            </p>
+
         </div>
 
         <div class="subscribe">
@@ -149,31 +107,116 @@
     </div>
 </footer>
 </body>
-</html>
 <script>
-    function openFarwaModal() {
-        const modal = document.getElementById('farwa-modal');
-        const inlineVideo = document.getElementById('farwa-inline');
-        const modalVideo = document.getElementById('farwa-modal-video');
+    // HIER trägst du nur deine Videos ein
+    const videos = [
+        {
+            id: "farwa",
+            title: "Farwa – 20th Birthday Aesthetic Reel",
+            description: "A soft, cinematic birthday visual · Role: Camera & Edit.",
+            src: "videos/farwa_birthday.mp4",
+            poster: "images/farwa_thumbnailjpg"
+        },
+        {
+            id: "storytelling",
+            title: "A day with Adventure",
+            description: "kommt noch..",
+            src: "videos/Climbing Reel.mov",
+            poster: "images/film2_thumbnail.jpg"
+        },
+        {
+            id: "fatma",
+            title: "Ghod Bharai",
+            description: "A traditional Baby Shower in Pakistani Style",
+            src: "videos/Fatma Reel.MP4",
+            poster: "images/film3_thumbnail.jpg"
+        },
+        {
+            id: "coney",
+            title: "Coney Island",
+            description: "Just few shorts Moments to remember Coney Island",
+            src: "videos/Coney Island Reel.MP4",
+            poster: "images/film3_thumbnail.jpg"
+        },
+        {
+            id: "rahya",
+            title: "Another Ghod Bharai",
+            description: "A traditional Baby Shower in Pakistani Style Baby",
+            src: "videos/Rahya Reel.MP4",
+            poster: "images/film3_thumbnail.jpg"
+        },
+        {
+            id: "namste1",
+            title: "Namaste",
+            description: "Ein Einblick in unsere Familien Gaststätte",
+            src: "videos/Chicken steel.MP4",
+            poster: "images/film3_thumbnail.jpg"
+        },
+        {
+            id: "namaste2",
+            title: "Namaste kitchen",
+            description: "Making Chicken Tikka Masala",
+            src: "videos/Masala Reel.MP4",
+            poster: "images/film3_thumbnail.jpg"
+        }
+        // Einfach weitere Objekte hinzufügen
+    ];
 
-        if (inlineVideo) inlineVideo.pause();  // kleines Video stoppen
-        modal.classList.add('show');
+    const grid = document.getElementById("film-grid");
+    const modal = document.getElementById("video-modal");
+    const modalVideo = document.getElementById("modal-video");
+
+    // Cards automatisch bauen
+    videos.forEach(video => {
+        const card = document.createElement("div");
+        card.className = "film-card";
+
+        card.innerHTML = `
+      <div class="thumb-placeholder">
+        <video
+          class="film-video"
+          controls
+          ${video.poster ? `poster="${video.poster}"` : ""}>
+          <source src="${video.src}" type="video/mp4">
+        </video>
+        <button class="enlarge-btn" type="button" data-src="${video.src}">⤢</button>
+      </div>
+      <div class="film-info">
+        <h3>${video.title}</h3>
+        <p>${video.description}</p>
+      </div>
+    `;
+
+        grid.appendChild(card);
+    });
+
+    // Enlarge-Buttons klicken
+    grid.addEventListener("click", (e) => {
+        const btn = e.target.closest(".enlarge-btn");
+        if (!btn) return;
+
+        const src = btn.getAttribute("data-src");
+        if (!src) return;
+
+        modalVideo.src = src;
         modalVideo.currentTime = 0;
         modalVideo.play();
+        modal.classList.add("show");
+    });
+
+    function closeVideoModal() {
+        modal.classList.remove("show");
+        modalVideo.pause();
+        modalVideo.removeAttribute("src");
     }
 
-    function closeFarwaModal() {
-        const modal = document.getElementById('farwa-modal');
-        const modalVideo = document.getElementById('farwa-modal-video');
-
-        modal.classList.remove('show');
-        if (modalVideo) modalVideo.pause();
-    }
-
-    // Klick außerhalb des Videos schließt das Modal
-    document.getElementById('farwa-modal').addEventListener('click', function(e) {
-        if (!e.target.closest('.video-modal-inner')) {
-            closeFarwaModal();
+    // Klick auf schwarzen Bereich schließt Modal
+    modal.addEventListener("click", (e) => {
+        if (!e.target.closest(".video-modal-inner")) {
+            closeVideoModal();
         }
     });
 </script>
+
+</html>
+
